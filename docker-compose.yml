@@ -1,0 +1,32 @@
+version: '3'
+services:
+  node1:
+    image: bun/btcd:latest
+    command: btcd --miningaddr=SSwfPFMdZMGvQ5VyBQsHPdy69sPxevhxe5
+    cap_add:
+      - ALL
+    ports:
+      - "18556:18556"
+    volumes:
+      - /Users/bun/go/src/practice/btcd/btcd_test/node1:/root
+    networks:
+      vpcbr:
+        ipv4_address: 10.6.0.11
+  node2:
+    image: bun/btcd:latest
+    command: btcd --miningaddr=SSwfPFMdZMGvQ5VyBQsHPdy69sPxevhxe5
+    cap_add:
+      - ALL
+    ports:
+      - "18557:18556"
+    volumes:
+      - /Users/bun/go/src/practice/btcd/btcd_test/node2:/root
+    networks:
+      vpcbr:
+        ipv4_address: 10.6.0.12
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.6.0.0/16
